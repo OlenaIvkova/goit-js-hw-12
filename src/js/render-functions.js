@@ -1,3 +1,5 @@
+mport axios from 'axios';
+
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
@@ -8,7 +10,7 @@ const lightbox = new SimpleLightbox('.gallery a');
 
 export const renderImages = images => {
     const gallery = document.querySelector('.gallery');
-    gallery.innerHTML = '';
+    // gallery.innerHTML = '';
 
     if (images.length === 0) {
         iziToast.error({
@@ -45,8 +47,13 @@ export const renderImages = images => {
         )
         .join('');
 
-    gallery.innerHTML = markup;
+    // gallery.innerHTML = markup;
+    gallery.insertAdjacentHTML('beforeend', markup);
     lightbox.refresh();
+};
+
+export const clearGallery = () => {
+    document.querySelector('.gallery').innerHTML = '';
 };
 
 export const showLoader = () => {
@@ -61,4 +68,21 @@ export const hideLoader = () => {
     if (loader) {
         loader.style.display = 'none';
     }
+};
+
+export const showLoadMoreButton = () => {
+    const loadMoreBtn = document.querySelector('.load-more');
+    loadMoreBtn.style.display = 'block';
+};
+
+export const hideLoadMoreButton = () => {
+    const loadMoreBtn = document.querySelector('.load-more');
+    loadMoreBtn.style.display = 'none';
+};
+
+export const showEndOfResultsMessage = () => {
+    iziToast.info({
+        title: 'Info',
+        message: "We're sorry, but you've reached the end of search results.",
+    });
 };
